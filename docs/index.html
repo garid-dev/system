@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Онлайн дэлгүүр — GitHub Pages</title>
+    <link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+    <div class="hero">
+        <h1>🛒 Онлайн дэлгүүр</h1>
+        <p>GitHub Pages (static) → API → SQL Server <b>GARID / OnlineShopDB</b>. Хийсэн захиалга SSMS руу бичигдэнэ.</p>
+        <div class="api-bar">
+            <label>API хаяг (cloudflared URL)</label>
+            <input id="apiBase" placeholder="https://xxxx.trycloudflare.com" />
+            <button onclick="saveApi()">Хадгалах</button>
+        </div>
+        <p class="hint" id="apiStatus"></p>
+    </div>
+
+    <div class="wrap">
+        <div id="msg" class="msg hidden"></div>
+
+        <div class="grid">
+            <section class="card">
+                <h2 id="userTitle">🔑 Нэвтрэх / Бүртгүүлэх</h2>
+                <div id="loginBox">
+                    <label>Нэрэвш</label>
+                    <input id="loginUser" value="bold" autocomplete="username" />
+                    <label>Нууц үг</label>
+                    <input id="loginPass" type="password" value="bold123" autocomplete="current-password" />
+                    <button onclick="doLogin()">Нэвтрэх</button>
+                </div>
+                <div id="userBox" class="hidden">
+                    <p>Сайн байна уу, <b id="userNameText"></b> (<span id="userRoleText" class="code"></span>)</p>
+                    <button class="danger" onclick="doLogout()">Гарах</button>
+                </div>
+                <hr />
+                <h3>Шинэ хэрэглэгч бүртгүүлэх</h3>
+                <label>Нэрэвш</label>
+                <input id="regUser" />
+                <label>Нууц үг</label>
+                <input id="regPass" type="password" />
+                <label>Овог нэр</label>
+                <input id="regName" />
+                <label>Имэйл</label>
+                <input id="regEmail" type="email" />
+                <button onclick="doRegister()">Бүртгүүлэх</button>
+                <p class="hint">Туршилт: bold / bold123 эсвэл admin / admin123</p>
+            </section>
+
+            <section class="card">
+                <h2>📦 Бараанууд <span id="productCount" class="code"></span></h2>
+                <table>
+                    <thead>
+                        <tr><th>Код</th><th>Нэр</th><th>Ангилал</th><th class="money">Үнэ ₮</th><th>Үлдэгдэл</th><th></th></tr>
+                    </thead>
+                    <tbody id="productsBody"></tbody>
+                </table>
+            </section>
+        </div>
+
+        <section class="card">
+            <h2>🧺 Сагс</h2>
+            <div id="cartArea"></div>
+        </section>
+
+        <section class="card">
+            <h2>📡 Live лог — хэн / ямар код / ямар бараа / хэзээ</h2>
+            <p class="hint">4 секунд тутамд SQL Server-ээс дахин уншина.</p>
+            <table>
+                <thead>
+                    <tr><th>Хэрэглэгч</th><th>Код</th><th>Барааны код</th><th>Үйлдэл</th><th>Огноо / цаг</th></tr>
+                </thead>
+                <tbody id="logBody"></tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="assets/config.js"></script>
+    <script src="assets/app.js"></script>
+</body>
+</html>

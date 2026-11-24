@@ -1,0 +1,12 @@
+# Build үүсгэсэн файлууд
+Web/bin/
+Web/obj/
+
+# Cloudflare_program (55 MB) репозиторид оруулахгүй
+Deploy/cloudflared.exe
+
+# IDE / OS
+.vs/
+*.user
+Thumbs.db
+Desktop.ini

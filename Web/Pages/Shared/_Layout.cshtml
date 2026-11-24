@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    @if (ViewData["Refresh"] != null)
+    {
+        <meta http-equiv="refresh" content="@ViewData["Refresh"]" />
+    }
+    <title>@ViewData["Title"] - Online Shop</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

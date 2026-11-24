@@ -1,0 +1,43 @@
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    font-family: "Segoe UI", "Segoe UI Emoji", sans-serif;
+    background: #f4f7fb;
+    color: #243140;
+}
+.hero {
+    background: linear-gradient(120deg, #2563eb, #7c3aed);
+    color: white;
+    padding: 24px 36px;
+}
+.hero h1 { margin: 0 0 6px; font-size: 30px; }
+.hero p { margin: 0; opacity: .92; }
+.hero .hint { color: #e0e7ff; }
+.api-bar { margin-top: 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.api-bar label { font-size: 13px; }
+.api-bar input { width: 330px; background: rgba(255,255,255,.95); }
+.api-bar button { margin: 0; background: #0f172a; }
+.wrap { max-width: 1240px; margin: 20px auto; padding: 0 18px; }
+.msg { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; padding: 12px 16px; border-radius: 10px; margin: 14px 0; }
+.msg.error { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+.hidden { display: none; }
+.grid { display: grid; grid-template-columns: 360px 1fr; gap: 18px; }
+.card { background: white; border-radius: 14px; padding: 18px 20px; box-shadow: 0 6px 18px rgba(30,64,175,.08); margin-bottom: 18px; }
+.card h2 { margin-top: 0; font-size: 19px; color: #1e40af; }
+.card h3 { font-size: 15px; margin: 10px 0 0; color: #475569; }
+label { display: block; font-size: 13px; margin: 10px 0 4px; color: #475569; }
+input { width: 100%; padding: 9px 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; }
+button { background: #2563eb; color: white; border: 0; border-radius: 8px; padding: 10px 16px; cursor: pointer; font-size: 14px; margin-top: 12px; }
+button:hover { opacity: .9; }
+button.small { padding: 6px 12px; margin: 0; background: #16a34a; }
+button.danger { background: #dc2626; }
+button.minus { background: #f59e0b; padding: 5px 10px; margin: 0; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 9px 10px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+th { background: #eff6ff; color: #1e40af; font-size: 13px; }
+tr:hover td { background: #f8fafc; }
+.code { font-family: Consolas, monospace; font-weight: bold; color: #7c3aed; }
+.money { text-align: right; white-space: nowrap; }
+.total { font-weight: bold; font-size: 16px; text-align: right; padding: 12px; }
+.hint { font-size: 12px; color: #64748b; margin-top: 6px; }
+hr { border: 0; border-top: 1px solid #e2e8f0; margin: 18px 0 4px; }

@@ -1,0 +1,30 @@
+@page
+@model LogModel
+@{
+    ViewData["Title"] = "Live лог";
+    Layout = "_Layout";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Хэрэглэгч</th>
+            <th>Код</th>
+            <th>Барааны код</th>
+            <th>Үйлдэл</th>
+            <th>Огноо / цаг</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (DataRow row in Model.Items.Rows)
+        {
+            <tr>
+                <td>@row["Хэрэглэгч"]</td>
+                <td><span class="code">@row["Код"]</span></td>
+                <td><span class="code">@row["Барааны код"]</span></td>
+                <td>@row["Үйлдэл"]</td>
+                <td>@row["Огноо / цаг"]</td>
+            </tr>
+        }
+    </tbody>
+</table>

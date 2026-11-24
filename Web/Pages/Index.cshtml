@@ -1,0 +1,128 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Онлайн дэлгүүр";
+}
+
+<div class="hero">
+    <h1>🛒 Онлайн дэлгүүр</h1>
+    <p>Энэ сайт SSMS / SQL Server (GARID → OnlineShopDB)-тэй шууд холбогдсон. Хийсэн үйлдэл бүр доорх логт шууд бичигдэнэ.</p>
+</div>
+
+<div class="wrap">
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="msg">✅ @Model.Message</div>
+    }
+
+    <div class="grid">
+        <!-- Нэвтрэх / бүртгүүлэх -->
+        <section class="card">
+            <h2>@(string.IsNullOrEmpty(Model.UserName) ? "🔑 Нэвтрэх / Бүртгүүлэх" : "👤 " + Model.UserName)</h2>
+
+            @if (string.IsNullOrEmpty(Model.UserName))
+            {
+                <form method="post" asp-page-handler="Login">
+                    <label>Нэрэвш</label>
+                    <input name="username" value="bold" required />
+                    <label>Нууц үг</label>
+                    <input name="password" type="password" value="bold123" required />
+                    <button type="submit">Нэвтрэх</button>
+                </form>
+                <hr />
+                <form method="post" asp-page-handler="Register">
+                    <label>Шинэ нэрэвш</label>
+                    <input name="regUsername" required />
+                    <label>Нууц үг</label>
+                    <input name="regPassword" type="password" required />
+                    <label>Овог нэр</label>
+                    <input name="regFullName" required />
+                    <label>Имэйл</label>
+                    <input name="regEmail" type="email" required />
+                    <button type="submit">Бүртгүүлэх</button>
+                </form>
+                <p class="hint">Туршилтын хэрэглэгч: admin / admin123 эсвэл bold / bold123</p>
+            }
+            else
+            {
+                <p>Роль: <span class="code">@Model.Role</span></p>
+                <form method="post" asp-page-handler="Logout">
+                    <button type="submit" class="danger">Гарах</button>
+                </form>
+            }
+        </section>
+
+        <!-- Бараанууд -->
+        <section class="card">
+            <h2>📦 Бараанууд (@Model.Products.Rows.Count)</h2>
+            <table>
+                <thead>
+                    <tr><th>Код</th><th>Нэр</th><th>Ангилал</th><th class="money">Үнэ ₮</th><th>Үлдэгдэл</th><th></th></tr>
+                </thead>
+                <tbody>
+                    @foreach (DataRow row in Model.Products.Rows)
+                    {
+                        int id = Convert.ToInt32(row["Id"]);
+                        <tr>
+                            <td class="code">@row["Code"]</td>
+                            <td>@row["Name"]</td>
+                            <td>@row["Category"]</td>
+                            <td class="money">@Convert.ToDecimal(row["Price"]).ToString("N0")</td>
+                            <td>@row["Stock"]</td>
+                            <td>
+                                <form method="post" asp-page-handler="Add">
+                                    <input type="hidden" name="id" value="@id" />
+                                    <button type="submit" class="small">＋ Сагс</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- Сагс -->
+    <section class="card">
+        <h2>🧺 Сагс</h2>
+        @if (Model.Cart.Count == 0)
+        {
+            <p>Сагс хоосон байна. Дээрх бараануудаас "＋ Сагс" дарна уу.</p>
+        }
+        else
+        {
+            <table>
+                <thead><tr><th>Код</th><th>Бараа</th><th>Тоо</th><th class="money">Үнэ</th><th class="money">Дүн</th><th></th></tr></thead>
+                <tbody>
+                    @foreach (var item in Model.Cart)
+                    {
+                        <tr>
+                            <td class="code">@item.Code</td>
+                            <td>@item.Name</td>
+                            <td>@item.Qty</td>
+                            <td class="money">@item.Price.ToString("N0")</td>
+                            <td class="money">@item.Sum.ToString("N0")</td>
+                            <td>
+                                <form method="post" asp-page-handler="Remove" class="inline">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button type="submit" class="minus">−</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="total">Нийт: @Model.CartTotal.ToString("N0") ₮</div>
+            <form method="post" asp-page-handler="Order">
+                <button type="submit">✅ Бараа захиалах</button>
+            </form>
+        }
+    </section>
+
+    <!-- Live лог -->
+    <section class="card">
+        <h2>📡 Live лог — хэн, ямар код, ямар бараа, хэзээ</h2>
+        <p class="hint">Энэ хэсэг 4 секунд тутамд өөрөө шинэчлэгдэнэ. SSMS нээх шаардлагагүй.</p>
+        <iframe src="/Log" title="Activity log"></iframe>
+    </section>
+</div>
