@@ -9,10 +9,10 @@
 <body>
     <div class="hero">
         <h1>🛒 Онлайн дэлгүүр</h1>
-        <p>GitHub Pages (static) → API → SQL Server <b>GARID / OnlineShopDB</b>. Хийсэн захиалга SSMS руу бичигдэнэ.</p>
+        <p>Бараа сонгож, сагсанд нэмээд захиалга өгөх боломжтой.</p>
         <div class="api-bar">
-            <label>API хаяг (cloudflared URL)</label>
-            <input id="apiBase" placeholder="https://xxxx.trycloudflare.com" />
+            <label>Холболтын хаяг</label>
+            <input id="apiBase" placeholder="https://..." />
             <button onclick="saveApi()">Хадгалах</button>
         </div>
         <p class="hint" id="apiStatus"></p>
@@ -67,7 +67,7 @@
 
         <section class="card">
             <h2>📡 Live лог — хэн / ямар код / ямар бараа / хэзээ</h2>
-            <p class="hint">4 секунд тутамд SQL Server-ээс дахин уншина.</p>
+            <p class="hint">Шинэ үйлдэл гарвал жагсаалт автоматаар шинэчлэгдэнэ.</p>
             <table>
                 <thead>
                     <tr><th>Хэрэглэгч</th><th>Код</th><th>Барааны код</th><th>Үйлдэл</th><th>Огноо / цаг</th></tr>

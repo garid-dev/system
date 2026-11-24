@@ -1,4 +1,4 @@
-/* GitHub Pages (static) → API → SQL Server GARID / OnlineShopDB */
+/* GitHub Pages статик хуудасны үндсэн логик */
 
 const params = new URLSearchParams(location.search);
 let API = params.get('api') || localStorage.getItem('shop_api') ||
@@ -23,14 +23,14 @@ function esc(v) {
 function money(v) { return Number(v).toLocaleString('en-US'); }
 function saveApi() {
     const value = document.getElementById('apiBase').value.trim().replace(/\/+$/, '');
-    if (!value) { showMsg('API хаягаа оруулна уу', true); return; }
+    if (!value) { showMsg('Холболтын хаягаа оруулна уу', true); return; }
     localStorage.setItem('shop_api', value);
     location.href = location.pathname;
 }
 async function api(path, options) {
     if (!API || API.includes('REPLACE-ME')) {
-        showMsg('Эхлээд дээрх API хаягийг тохируулна уу', true);
-        throw new Error('API хаяг байхгүй');
+        showMsg('Эхлээд дээрх холболтын хаягийг тохируулна уу', true);
+        throw new Error('Холболтын хаяг байхгүй');
     }
     const res = await fetch(API + path, Object.assign({
         headers: { 'Content-Type': 'application/json' }
@@ -68,7 +68,7 @@ async function doLogin() {
         if (r.ok) {
             user = { userId: r.userId, username: r.username, fullName: r.fullName, role: r.role };
             localStorage.setItem('shop_user', JSON.stringify(user));
-            showMsg(r.message + ' — LOGIN лог SQL руу бичигдлээ');
+            showMsg(r.message);
         } else {
             showMsg(r.message, true);
         }
@@ -90,7 +90,7 @@ async function doRegister() {
         if (r.ok) {
             user = { userId: r.userId, username: r.username, fullName: r.fullName || r.username, role: 'Customer' };
             localStorage.setItem('shop_user', JSON.stringify(user));
-            showMsg(r.message + ' — REGISTER лог SQL руу бичигдлээ');
+            showMsg(r.message);
         } else {
             showMsg(r.message, true);
         }
@@ -171,7 +171,7 @@ function renderCart() {
             </tbody>
         </table>
         <div class="total">Нийт: ${money(total)} ₮</div>
-        <button onclick="placeOrder()">✅ Бараа захиалах (SSMS руу бичих)</button>`;
+        <button onclick="placeOrder()">✅ Бараа захиалах</button>`;
 }
 async function placeOrder() {
     if (!user) { showMsg('Эхлээд нэвтрэх эсвэл бүртгүүлэх хэрэгтэй', true); return; }
@@ -215,8 +215,8 @@ async function refreshLog() {
 /* ---------- эхлүүлэх ---------- */
 document.getElementById('apiBase').value = API;
 let statusText;
-if (!API || API.includes('REPLACE-ME')) statusText = '⚠ API хаяг тохируулагдаагүй байна';
-else statusText = '✅ API: ' + API;
+if (!API || API.includes('REPLACE-ME')) statusText = '⚠ Холболт тохируулагдаагүй байна';
+else statusText = '✅ Холболт бэлэн';
 document.getElementById('apiStatus').textContent = statusText;
 
 renderUser();
