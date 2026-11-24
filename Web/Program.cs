@@ -90,7 +90,7 @@ app.MapPost("/api/order", ([FromBody] OrderReq req) =>
     {
         ok,
         failed = errors.Count,
-        message = ok > 0 ? ok + " төрлийн бараа захиалагдлаа. SSMS руу бичигдлээ." : "Захиалга амжилтгүй",
+        message = ok > 0 ? ok + " төрлийн бараа захиалагдлаа." : "Захиалга амжилтгүй",
         errors
     });
 });

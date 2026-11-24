@@ -55,7 +55,7 @@ GitHub Pages (docs/)  →  Cloudflare tunnel  →  Локаль API (localhost:5
    ```
    https://garid-dev.github.io/system/?api=https://xxxx.trycloudflare.com
    ```
-5. Захиалга хийгээд Live лог болон SSMS дээр шалгана:
+5. Захиалга хийгээд SSMS дээр шалгана:
    ```sql
    SELECT TOP 5 UserName, ActionCode, ProductCode, Details, AtTime
    FROM dbo.ActivityLog ORDER BY Id DESC;

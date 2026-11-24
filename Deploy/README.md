@@ -44,9 +44,9 @@ https://abcd-1234-efgh.trycloudflare.com
 
 ---
 
-## 3. API хаягийг сайтад хэлж өгнө
+## 3. Холболтыг сайтад хэлж өгнө
 
-Хоёр аргын аль нь ч болно.
+Сайт дээр хаяг оруулах талбар байхгүй болсон тул дараах хоёр аргын аль нь ч болно.
 
 ### Арга А — скриптээр (санал болгож байна)
 
@@ -76,9 +76,8 @@ https://garid-dev.github.io/system/?api=https://abcd-1234-efgh.trycloudflare.com
 1. `https://abcd-1234-efgh.trycloudflare.com/api/health` — `ok: true` гэж хариулна.
 2. GitHub Pages хуудас дээр 12 бараа харагдана.
 3. `bold / bold123` эсвэл `admin / admin123` гэж нэвтрэнэ.
-4. Бараа нэмээд **Бараа захиалах** дарна.
-5. Доод талын Live лог шинэ `ORDER | Pxxx` мөрөөр шууд шинэчлэгдэнэ.
-6. SSMS дээр дараах query-г ажиллуулж баталгаажуулна:
+4. Бараа нэмээд **Бараа захиалах** дарна. Амжилттай бол мэдэгдэл гарч, сагс хоосоно.
+5. SSMS дээр дараах query-г ажиллуулж баталгаажуулна:
 
 ```sql
 SELECT TOP 5 UserName, ActionCode, ProductCode, Details, AtTime

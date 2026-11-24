@@ -21,15 +21,9 @@ function esc(v) {
         ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 function money(v) { return Number(v).toLocaleString('en-US'); }
-function saveApi() {
-    const value = document.getElementById('apiBase').value.trim().replace(/\/+$/, '');
-    if (!value) { showMsg('Холболтын хаягаа оруулна уу', true); return; }
-    localStorage.setItem('shop_api', value);
-    location.href = location.pathname;
-}
 async function api(path, options) {
     if (!API || API.includes('REPLACE-ME')) {
-        showMsg('Эхлээд дээрх холболтын хаягийг тохируулна уу', true);
+        showMsg('Холболт тохируулагдаагүй байна', true);
         throw new Error('Холболтын хаяг байхгүй');
     }
     const res = await fetch(API + path, Object.assign({
@@ -73,7 +67,6 @@ async function doLogin() {
             showMsg(r.message, true);
         }
         renderUser();
-        await refreshLog();
     } catch (e) { showMsg('Алдаа: ' + e.message, true); }
 }
 async function doRegister() {
@@ -95,7 +88,6 @@ async function doRegister() {
             showMsg(r.message, true);
         }
         renderUser();
-        await refreshLog();
     } catch (e) { showMsg('Алдаа: ' + e.message, true); }
 }
 function doLogout() {
@@ -190,37 +182,10 @@ async function placeOrder() {
             renderCart();
             await loadProducts();
         }
-        await refreshLog();
     } catch (e) { showMsg('Алдаа: ' + e.message, true); }
 }
 
-/* ---------- live лог ---------- */
-async function refreshLog() {
-    try {
-        const rows = await api('/api/log');
-        document.getElementById('logBody').innerHTML = rows.map(r => `
-            <tr>
-                <td>${esc(r.UserName)}</td>
-                <td><span class="code">${esc(r.ActionCode)}</span></td>
-                <td><span class="code">${esc(r.ProductCode)}</span></td>
-                <td>${esc(r.Details)}</td>
-                <td>${esc(r.AtTime)}</td>
-            </tr>`).join('');
-    } catch (e) {
-        document.getElementById('logBody').innerHTML =
-            '<tr><td colspan="5">Лог уншиж чадсангүй: ' + esc(e.message) + '</td></tr>';
-    }
-}
-
 /* ---------- эхлүүлэх ---------- */
-document.getElementById('apiBase').value = API;
-let statusText;
-if (!API || API.includes('REPLACE-ME')) statusText = '⚠ Холболт тохируулагдаагүй байна';
-else statusText = '✅ Холболт бэлэн';
-document.getElementById('apiStatus').textContent = statusText;
-
 renderUser();
 renderCart();
 loadProducts();
-refreshLog();
-setInterval(refreshLog, 4000);
