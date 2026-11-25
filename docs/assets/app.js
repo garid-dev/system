@@ -8,6 +8,7 @@ API = String(API).replace(/\/+$/, '');
 let user = JSON.parse(localStorage.getItem('shop_user') || 'null');
 let cart = JSON.parse(localStorage.getItem('shop_cart') || '[]');
 let products = [];
+let activeCategory = 'Бүх бараа';
 
 /* ---------- жижиг туслах функцууд ---------- */
 function showMsg(text, isError) {
@@ -107,14 +108,47 @@ function doLogout() {
 }
 
 /* ---------- бараа, сагс, захиалга ---------- */
+function renderCategories() {
+    const bar = document.getElementById('categoryBar');
+    if (!bar) return;
+    const names = ['Бүх бараа'];
+    products.forEach(p => {
+        const name = p.Category || p.category;
+        if (name && names.indexOf(name) === -1) names.push(name);
+    });
+    if (names.indexOf(activeCategory) === -1) activeCategory = 'Бүх бараа';
+
+    bar.innerHTML = '';
+    const label = document.createElement('span');
+    label.className = 'category-label';
+    label.textContent = 'Ангилал:';
+    bar.appendChild(label);
+
+    names.forEach(name => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'chip' + (name === activeCategory ? ' active' : '');
+        b.textContent = name;
+        b.onclick = () => selectCategory(name);
+        bar.appendChild(b);
+    });
+}
+function selectCategory(name) {
+    activeCategory = name;
+    renderCategories();
+    renderProducts();
+}
 function renderProducts() {
     const body = document.getElementById('productsBody');
-    document.getElementById('productCount').textContent = '(' + products.length + ')';
-    if (!products.length) {
-        body.innerHTML = '<tr><td colspan="6" class="empty">Бараа ачааллаж чадсангүй. Дахин оролдоно уу.</td></tr>';
+    const shown = activeCategory === 'Бүх бараа'
+        ? products
+        : products.filter(p => (p.Category || p.category) === activeCategory);
+    document.getElementById('productCount').textContent = '(' + shown.length + '/' + products.length + ')';
+    if (!shown.length) {
+        body.innerHTML = '<tr><td colspan="6" class="empty">Энэ ангилалд бараа алга. Өөр ангилал сонгоно уу.</td></tr>';
         return;
     }
-    body.innerHTML = products.map(p => `
+    body.innerHTML = shown.map(p => `
         <tr>
             <td class="code">${esc(p.Code || p.code)}</td>
             <td>${esc(p.Name || p.name)}</td>
@@ -127,10 +161,12 @@ function renderProducts() {
 async function loadProducts() {
     try {
         products = await api('/api/products');
+        renderCategories();
         renderProducts();
     } catch (e) {
         /* Холболт тасарсан ч барааны хүснэгт хоосон байж болохгүй. */
         products = (window.SHOP_FALLBACK_PRODUCTS || []).slice();
+        renderCategories();
         renderProducts();
         if (products.length) {
             showMsg('Холболт тасарсан тул барааны жагсаалтыг хадгалсан хувилбараар харууллаа.', true);

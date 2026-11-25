@@ -13,6 +13,19 @@ body {
 .hero h1 { margin: 0 0 6px; font-size: 30px; }
 .hero p { margin: 0; opacity: .92; }
 .hero .hint { color: #e0e7ff; }
+.category-bar { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.category-label { font-size: 13px; opacity: .9; margin-right: 2px; }
+.category-bar .chip {
+    background: rgba(255,255,255,.18);
+    color: white;
+    border: 1px solid rgba(255,255,255,.55);
+    padding: 6px 14px;
+    margin: 0;
+    border-radius: 999px;
+    font-size: 13px;
+}
+.category-bar .chip:hover { background: rgba(255,255,255,.32); }
+.category-bar .chip.active { background: white; color: #1e40af; border-color: white; font-weight: bold; }
 .api-bar { margin-top: 14px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
 .api-bar label { font-size: 13px; }
 .api-bar input { width: 330px; background: rgba(255,255,255,.95); }

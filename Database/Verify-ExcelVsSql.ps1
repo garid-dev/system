@@ -33,7 +33,8 @@ $exUsers      = SheetRows 'Users'      @(1,2,3,4,5)
 $exCategories = SheetRows 'Categories' @(1,2)
 $exProducts   = SheetRows 'Products'   @(2,3,4,5)   # Code, Name, CategoryId, Price
 
-$sqlUsers      = SqlRows "SELECT Username,Password,FullName,Email,Role FROM dbo.Users ORDER BY Id;"
+# Excel нь анхны 3 хэрэглэгчийг агуулна. Сайтаар бүртгэгдсэн (Id > 3) хэрэглэгчид шалгалтад орохгүй.
+$sqlUsers      = SqlRows "SELECT Username,Password,FullName,Email,Role FROM dbo.Users WHERE Id <= 3 ORDER BY Id;"
 $sqlCategories = SqlRows "SELECT Id,Name FROM dbo.Categories ORDER BY Id;"
 $sqlProducts   = SqlRows "SELECT Code,Name,CategoryId,Price FROM dbo.Products ORDER BY Id;"
 
