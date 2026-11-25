@@ -1,9 +1,8 @@
 /* GitHub Pages статик хуудасны үндсэн логик */
 
 const params = new URLSearchParams(location.search);
-let API = params.get('api') || localStorage.getItem('shop_api') ||
-          (window.SHOP_CONFIG ? window.SHOP_CONFIG.apiBase : '');
-if (params.get('api')) localStorage.setItem('shop_api', params.get('api'));
+/* Хуучин хадгалагдсан хаяг хоцорсон байсан тул одоо config.js дээрх хаягийг гол болгож байна. */
+let API = params.get('api') || (window.SHOP_CONFIG ? window.SHOP_CONFIG.apiBase : '');
 API = String(API).replace(/\/+$/, '');
 
 let user = JSON.parse(localStorage.getItem('shop_user') || 'null');
@@ -21,6 +20,16 @@ function esc(v) {
         ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 }
 function money(v) { return Number(v).toLocaleString('en-US'); }
+function showError(e) {
+    const m = String((e && e.message) || e || '');
+    if (/failed to fetch|networkerror|load failed|network connection|http 5\d\d/i.test(m)) {
+        showMsg('Холболт тасарсан байна. Хэсэг хүлээгээд дахин оролдоно уу.', true);
+    } else if (/http 4\d\d/i.test(m)) {
+        showMsg('Хүсэлт буруу байна. Мэдээллээ шалгаад дахин оролдоно уу.', true);
+    } else {
+        showMsg('Алдаа: ' + m, true);
+    }
+}
 async function api(path, options) {
     if (!API || API.includes('REPLACE-ME')) {
         showMsg('Холболт тохируулагдаагүй байна', true);
@@ -67,7 +76,7 @@ async function doLogin() {
             showMsg(r.message, true);
         }
         renderUser();
-    } catch (e) { showMsg('Алдаа: ' + e.message, true); }
+    } catch (e) { showError(e); }
 }
 async function doRegister() {
     try {
@@ -88,7 +97,7 @@ async function doRegister() {
             showMsg(r.message, true);
         }
         renderUser();
-    } catch (e) { showMsg('Алдаа: ' + e.message, true); }
+    } catch (e) { showError(e); }
 }
 function doLogout() {
     user = null;
@@ -101,6 +110,10 @@ function doLogout() {
 function renderProducts() {
     const body = document.getElementById('productsBody');
     document.getElementById('productCount').textContent = '(' + products.length + ')';
+    if (!products.length) {
+        body.innerHTML = '<tr><td colspan="6" class="empty">Бараа ачааллаж чадсангүй. Дахин оролдоно уу.</td></tr>';
+        return;
+    }
     body.innerHTML = products.map(p => `
         <tr>
             <td class="code">${esc(p.Code || p.code)}</td>
@@ -115,7 +128,7 @@ async function loadProducts() {
     try {
         products = await api('/api/products');
         renderProducts();
-    } catch (e) { showMsg('Бараа уншиж чадсангүй: ' + e.message, true); }
+    } catch (e) { showError(e); }
 }
 function addToCart(id) {
     const p = products.find(x => (x.Id || x.id) === id);
@@ -182,7 +195,7 @@ async function placeOrder() {
             renderCart();
             await loadProducts();
         }
-    } catch (e) { showMsg('Алдаа: ' + e.message, true); }
+    } catch (e) { showError(e); }
 }
 
 /* ---------- эхлүүлэх ---------- */

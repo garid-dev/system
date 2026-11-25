@@ -32,7 +32,7 @@ VS Code дээр ажилладаг, **SSMS / SQL Server-тэй шууд хол�
 GitHub Pages зөвхөн HTML/CSS/JS өгдөг тул C# код, SQL холболт тэнд ажиллахгүй. Тиймээс дараах бүтэцтэй:
 
 ```text
-GitHub Pages (docs/)  →  Cloudflare tunnel  →  Локаль API (localhost:5199)  →  SQL Server GARID / OnlineShopDB
+GitHub Pages (docs/)  →  SSH tunnel (localhost.run)  →  Локаль API (localhost:5199)  →  SQL Server GARID / OnlineShopDB
 ```
 
 ### Хийх алхам
@@ -42,18 +42,18 @@ GitHub Pages (docs/)  →  Cloudflare tunnel  →  Локаль API (localhost:5
    cd "C:\Users\dell\Documents\Default Project\OnlineShop"
    powershell -ExecutionPolicy Bypass -File Deploy\start-api.ps1
    ```
-2. **Терминал 2** — Cloudflare tunnel асаана:
+2. **Терминал 2** — SSH tunnel асаана (цонхыг хааж болохгүй):
    ```
-   powershell -ExecutionPolicy Bypass -File Deploy\start-tunnel.ps1
+   powershell -ExecutionPolicy Bypass -File Deploy\start-tunnel-localhostrun.ps1
    ```
-3. Гарч ирсэн `https://xxxx.trycloudflare.com` хаягийг авч **Терминал 3** дээр бичнэ:
+3. Гарч ирсэн `https://xxxx.app.lhr.life` хаягийг авч **Терминал 3** дээр бичнэ:
    ```
-   powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://xxxx.trycloudflare.com
+   powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://xxxx.app.lhr.life
    ```
 4. `https://garid-dev.github.io/system/` хуудсыг `Ctrl + F5` хийж шинэчилнэ.
    Эсвэл шууд ийм хаягаар нээж болно:
    ```
-   https://garid-dev.github.io/system/?api=https://xxxx.trycloudflare.com
+   https://garid-dev.github.io/system/?api=https://xxxx.app.lhr.life
    ```
 5. Захиалга хийгээд SSMS дээр шалгана:
    ```sql
@@ -61,8 +61,8 @@ GitHub Pages (docs/)  →  Cloudflare tunnel  →  Локаль API (localhost:5
    FROM dbo.ActivityLog ORDER BY Id DESC;
    ```
 
-Одоогийн ажиллаж байгаа tunnel: `https://sep-tions-blond-commitments.trycloudflare.com`  
-(Quick tunnel тул дахин асаах бүрт хаяг өөрчлөгдөнө — өөрчлөгдсөн бол 3-р алхамыг дахин хийнэ үү.)
+Одоогийн ажиллаж байгаа tunnel: `https://9e39cb6f38bfb4.app.lhr.life`  
+(Үнэгүй tunnel тул хэдхэн цагийн дараа хаяг өөрчлөгддөг — өөрчлөгдсөн бол 2, 3-р алхамыг дахин хийнэ үү.)
 
 Дэлгэрэнгүй: [`Deploy\README.md`](Deploy/README.md).
 
