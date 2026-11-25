@@ -37,7 +37,7 @@ powershell -ExecutionPolicy Bypass -File Deploy\start-tunnel-localhostrun.ps1
 Дэлгэцэнд ийм мөр гарч ирнэ:
 
 ```text
-9e39cb6f38bfb4.app.lhr.life tunneled with tls termination, https://9e39cb6f38bfb4.app.lhr.life
+f9692460835cdb.app.lhr.life tunneled with tls termination, https://f9692460835cdb.app.lhr.life
 ```
 
 Энэ бол таны **API хаяг** юм. Энэ цонхыг хааж болохгүй — хаавал холболт тасарна.
@@ -56,7 +56,7 @@ powershell -ExecutionPolicy Bypass -File Deploy\start-tunnel-localhostrun.ps1
 
 ```powershell
 cd "C:\Users\dell\Documents\Default Project\OnlineShop"
-powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://9e39cb6f38bfb4.app.lhr.life
+powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://f9692460835cdb.app.lhr.life
 ```
 
 Дараа нь GitHub Pages хуудсаа **hard refresh** хийнэ (`Ctrl + F5`).
@@ -66,7 +66,7 @@ powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://9e3
 Сайтаа ийм хаягаар нээнэ:
 
 ```text
-https://garid-dev.github.io/system/?api=https://9e39cb6f38bfb4.app.lhr.life
+https://garid-dev.github.io/system/?api=https://f9692460835cdb.app.lhr.life
 ```
 
 Энэ арга нь зөвхөн тухайн нээлтэд хүчинтэй. Байнгийн хаяг `docs\assets\config.js` дотор байна.
@@ -75,7 +75,7 @@ https://garid-dev.github.io/system/?api=https://9e39cb6f38bfb4.app.lhr.life
 
 ## 4. Шалгах
 
-1. `https://9e39cb6f38bfb4.app.lhr.life/api/health` — `ok: true` гэж хариулна.
+1. `https://f9692460835cdb.app.lhr.life/api/health` — `ok: true` гэж хариулна.
 2. GitHub Pages хуудас дээр 12 бараа харагдана.
 3. `bold / bold123` эсвэл `admin / admin123` гэж нэвтрэнэ.
 4. Бараа нэмээд **Бараа захиалах** дарна. Амжилттай бол мэдэгдэл гарч, сагс хоосоно.
@@ -94,7 +94,8 @@ ORDER BY Id DESC;
 - **Үнэгүй tunnel URL хэдхэн цагийн дараа өөрчлөгддөг.** Өөрчлөгдсөн бол 2, 3-р алхамыг дахин хийнэ үү.
 - Тогтмол хаяг хэрэгтэй бол localhost.run данс + SSH key, эсвэл Cloudflare данс + домэйн (named tunnel) ашиглах шаардлагатай.
 - Энэ нь **зөвхөн хичээлийн demo** зориулсан тохиргоо. API бүх origin-оос хүсэлт хүлээж авдаг (`AllowAnyOrigin`) тул бодит системд хэрэглэж болохгүй.
-- Компьютер унтарсан, API эсвэл tunnel зогссон үед Pages хуудасны захиалга бичигдэхгүй.
+- Компьютер унтарсан, API эсвэл tunnel зогссон үед Pages хуудасны захиалга бичигдэхгүй. Барааны жагсаалт `docs/assets/products-fallback.js`-ээс харагдаж байна (зөвхөн харагдацад зориулсан хуулбар).
+- GitHub buildlog дээр гардаг `Node.js 20 is deprecated ... actions/upload-artifact@v4` гэсэн мөр **GitHub-ийн дотоод Pages build-ийн анхааруулга** юм. Энэ репозиторт `.github/workflows` байхгүй, build статус `built` байна — алдаа биш тул засах шаардлагагүй.
 
 ---
 

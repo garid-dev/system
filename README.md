@@ -61,7 +61,7 @@ GitHub Pages (docs/)  →  SSH tunnel (localhost.run)  →  Локаль API (lo
    FROM dbo.ActivityLog ORDER BY Id DESC;
    ```
 
-Одоогийн ажиллаж байгаа tunnel: `https://9e39cb6f38bfb4.app.lhr.life`  
+Одоогийн ажиллаж байгаа tunnel: `https://f9692460835cdb.app.lhr.life`  
 (Үнэгүй tunnel тул хэдхэн цагийн дараа хаяг өөрчлөгддөг — өөрчлөгдсөн бол 2, 3-р алхамыг дахин хийнэ үү.)
 
 Дэлгэрэнгүй: [`Deploy\README.md`](Deploy/README.md).

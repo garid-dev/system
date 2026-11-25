@@ -128,7 +128,16 @@ async function loadProducts() {
     try {
         products = await api('/api/products');
         renderProducts();
-    } catch (e) { showError(e); }
+    } catch (e) {
+        /* Холболт тасарсан ч барааны хүснэгт хоосон байж болохгүй. */
+        products = (window.SHOP_FALLBACK_PRODUCTS || []).slice();
+        renderProducts();
+        if (products.length) {
+            showMsg('Холболт тасарсан тул барааны жагсаалтыг хадгалсан хувилбараар харууллаа.', true);
+        } else {
+            showError(e);
+        }
+    }
 }
 function addToCart(id) {
     const p = products.find(x => (x.Id || x.id) === id);
