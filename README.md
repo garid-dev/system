@@ -47,14 +47,14 @@ GitHub Pages (docs/)  →  SSH tunnel (localhost.run)  →  Локаль API (lo
    ```
    powershell -ExecutionPolicy Bypass -File Deploy\start-tunnel-localhostrun.ps1
    ```
-3. Гарч ирсэн `https://6059201c6a049f.app.lhr.life` хаягийг авч **Терминал 3** дээр бичнэ:
+3. Гарч ирсэн `https://dfb98ad7ba96e9.app.lhr.life` хаягийг авч **Терминал 3** дээр бичнэ:
    ```
-   powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://6059201c6a049f.app.lhr.life
+   powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://dfb98ad7ba96e9.app.lhr.life
    ```
 4. `https://garid-dev.github.io/system/` хуудсыг `Ctrl + F5` хийж шинэчилнэ.
    Эсвэл шууд ийм хаягаар нээж болно:
    ```
-   https://garid-dev.github.io/system/?api=https://6059201c6a049f.app.lhr.life
+   https://garid-dev.github.io/system/?api=https://dfb98ad7ba96e9.app.lhr.life
    ```
 5. Захиалга хийгээд SSMS дээр шалгана:
    ```sql
@@ -63,7 +63,7 @@ GitHub Pages (docs/)  →  SSH tunnel (localhost.run)  →  Локаль API (lo
    ```
    Жишээ: `Гарьд Xiaomi 14 захиалсан (1 ширхэг)`. iPhone 15 (P001)-ийн үлдэгдэл одоо **20**.
 
-Одоогийн ажиллаж байгаа tunnel: `https://6059201c6a049f.app.lhr.life`  
+Одоогийн ажиллаж байгаа tunnel: `https://dfb98ad7ba96e9.app.lhr.life`  
 (Үнэгүй tunnel тул хэдхэн цагийн дараа хаяг өөрчлөгддөг — өөрчлөгдсөн бол 2, 3-р алхамыг дахин хийнэ үү.)
 
 Дэлгэрэнгүй: [`Deploy\README.md`](Deploy/README.md).
