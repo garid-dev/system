@@ -95,8 +95,8 @@ function Start-NewTunnel {
     $newUrl = $null
     for ($i = 0; $i -lt 45; $i++) {
         Start-Sleep -Seconds 2
-        if (Test-Path $tunnelErr) {
-            $text = Read-SharedText -Path $tunnelErr
+        $text = (Read-SharedText -Path $tunnelErr) + "`n" + (Read-SharedText -Path $tunnelOut)
+        if ($text.Trim()) {
             $found = [regex]::Matches($text, 'tunneled with tls termination, https://([a-z0-9]+\.app\.lhr\.life)')
             if ($found.Count -gt 0) {
                 $newUrl = 'https://' + $found[$found.Count - 1].Groups[1].Value
