@@ -37,7 +37,7 @@ powershell -ExecutionPolicy Bypass -File Deploy\start-tunnel-localhostrun.ps1
 Дэлгэцэнд ийм мөр гарч ирнэ:
 
 ```text
-f9692460835cdb.app.lhr.life tunneled with tls termination, https://f9692460835cdb.app.lhr.life
+f9692460835cdb.app.lhr.life tunneled with tls termination, https://3a0b51804521e0.app.lhr.life
 ```
 
 Энэ бол таны **API хаяг** юм. Энэ цонхыг хааж болохгүй — хаавал холболт тасарна.
@@ -56,7 +56,7 @@ f9692460835cdb.app.lhr.life tunneled with tls termination, https://f9692460835cd
 
 ```powershell
 cd "C:\Users\dell\Documents\Default Project\OnlineShop"
-powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://f9692460835cdb.app.lhr.life
+powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://3a0b51804521e0.app.lhr.life
 ```
 
 Дараа нь GitHub Pages хуудсаа **hard refresh** хийнэ (`Ctrl + F5`).
@@ -66,7 +66,7 @@ powershell -ExecutionPolicy Bypass -File Deploy\set-api-url.ps1 -Url https://f96
 Сайтаа ийм хаягаар нээнэ:
 
 ```text
-https://garid-dev.github.io/system/?api=https://f9692460835cdb.app.lhr.life
+https://garid-dev.github.io/system/?api=https://3a0b51804521e0.app.lhr.life
 ```
 
 Энэ арга нь зөвхөн тухайн нээлтэд хүчинтэй. Байнгийн хаяг `docs\assets\config.js` дотор байна.
@@ -75,7 +75,7 @@ https://garid-dev.github.io/system/?api=https://f9692460835cdb.app.lhr.life
 
 ## 4. Шалгах
 
-1. `https://f9692460835cdb.app.lhr.life/api/health` — `ok: true` гэж хариулна.
+1. `https://3a0b51804521e0.app.lhr.life/api/health` — `ok: true` гэж хариулна.
 2. GitHub Pages хуудас дээр 12 бараа харагдана.
 3. `bold / bold123` эсвэл `admin / admin123` гэж нэвтрэнэ.
 4. Бараа нэмээд **Бараа захиалах** дарна. Амжилттай бол мэдэгдэл гарч, сагс хоосоно.
