@@ -32,6 +32,16 @@ function Write-Log {
     Write-Host $line
 }
 
+function Read-SharedText {
+    param([string]$Path)
+    if (-not (Test-Path $Path)) { return '' }
+    $stream = [System.IO.File]::Open($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [System.IO.FileShare]::ReadWrite)
+    try {
+        $reader = New-Object System.IO.StreamReader($stream)
+        try { return $reader.ReadToEnd() } finally { $reader.Dispose() }
+    } finally { $stream.Dispose() }
+}
+
 function Get-CurrentUrl {
     $text = [System.IO.File]::ReadAllText($config, [System.Text.Encoding]::UTF8)
     $m = [regex]::Match($text, 'apiBase\s*:\s*"([^"]+)"')
@@ -86,7 +96,7 @@ function Start-NewTunnel {
     for ($i = 0; $i -lt 45; $i++) {
         Start-Sleep -Seconds 2
         if (Test-Path $tunnelErr) {
-            $text = [System.IO.File]::ReadAllText($tunnelErr)
+            $text = Read-SharedText -Path $tunnelErr
             $found = [regex]::Matches($text, 'tunneled with tls termination, https://([a-z0-9]+\.app\.lhr\.life)')
             if ($found.Count -gt 0) {
                 $newUrl = 'https://' + $found[$found.Count - 1].Groups[1].Value
