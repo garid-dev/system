@@ -89,9 +89,28 @@ ORDER BY Id DESC;
 
 ---
 
+## Автомат арчилгаа (одоо асаалттай)
+
+`Deploy\watch-tunnel.ps1` хяналт 60 секунд тутамд ажиллана:
+
+1. `config.js` дахь хаяг ажиллаж байвал юу ч өөрчлөхгүй.
+2. Хаяг унавал локаль API-г шалгаж (зогссон бол дахин асааж), шинэ localhost.run tunnel авна.
+3. Шинэ URL-ийг `config.js`, хоёр README руу бичиж, хуудасны `?v=` хувилбарыг нэмэгдүүлнэ (браузерийн кэш шинэчлэгдэнэ).
+4. Өөрчлөлтийг өөрөө commit + push хийнэ — Pages дахин build болно.
+
+Гараар дахин асаах шаардлагатай бол:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File Deploy\watch-tunnel.ps1
+```
+
+Хяналтын лог: `%LOCALAPPDATA%\OnlineShopTunnel\watcher.log`
+
+---
+
 ## чухал анхааруулга
 
-- **Үнэгүй tunnel URL хэдхэн цагийн дараа өөрчлөгддөг.** Өөрчлөгдсөн бол 2, 3-р алхамыг дахин хийнэ үү.
+- **Үнэгүй tunnel URL хэдхэн цагийн дараа өөрчлөгддөг.** Хяналт асаалттай үед энэ нь автоматаар шийдэгдэнэ; хяналт зогссон бол 2, 3-р алхамыг гараар дахин хийнэ үү.
 - Тогтмол хаяг хэрэгтэй бол localhost.run данс + SSH key, эсвэл Cloudflare данс + домэйн (named tunnel) ашиглах шаардлагатай.
 - Энэ нь **зөвхөн хичээлийн demo** зориулсан тохиргоо. API бүх origin-оос хүсэлт хүлээж авдаг (`AllowAnyOrigin`) тул бодит системд хэрэглэж болохгүй.
 - Компьютер унтарсан, API эсвэл tunnel зогссон үед Pages хуудасны захиалга бичигдэхгүй. Барааны жагсаалт `docs/assets/products-fallback.js`-ээс харагдаж байна (зөвхөн харагдацад зориулсан хуулбар).
@@ -107,3 +126,4 @@ ORDER BY Id DESC;
 | `start-api.ps1` | ASP.NET API-г `localhost:5199` дээр асаана |
 | `start-tunnel.ps1` | Cloudflare quick tunnel асаана |
 | `set-api-url.ps1` | гарсан URL-ийг `docs/assets/config.js` руу бичнэ |
+| `watch-tunnel.ps1` | хаягийг шалгаж, унавал шинэчлээд GitHub руу push хийнэ |
