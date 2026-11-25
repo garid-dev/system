@@ -140,20 +140,27 @@ function Update-SiteFiles {
     return $next
 }
 
+function Get-PendingChanges {
+    # Native git writes CRLF warnings to stderr; do not treat them as errors.
+    $ErrorActionPreference = 'Continue'
+    return @(git -C $root status --porcelain 2>$null)
+}
+
 function Publish-Change {
     param([string]$Message)
+    $ErrorActionPreference = 'Continue'
     Push-Location $root
     try {
         git add docs/assets/config.js docs/index.html README.md Deploy/README.md 2>&1 | Out-Null
-        $st = git status --porcelain
-        if (-not $st) { Write-Log 'No file changes to commit'; return $true }
+        $st = Get-PendingChanges
+        if (-not $st -or $st.Count -eq 0) { Write-Log 'No file changes to commit'; return $true }
 
         $out = git commit -m $Message 2>&1
-        Write-Log ('git commit: ' + ($out -join ' | '))
+        Write-Log ('git commit: ' + (($out | Out-String).Trim()))
         if ($LASTEXITCODE -ne 0) { return $false }
 
         $out = git push origin main 2>&1
-        Write-Log ('git push: ' + ($out -join ' | '))
+        Write-Log ('git push: ' + (($out | Out-String).Trim()))
         return ($LASTEXITCODE -eq 0)
     } finally {
         Pop-Location
@@ -181,6 +188,11 @@ function Recover {
 Write-Log "Watcher started (PID $PID)"
 while ($true) {
     try {
+        $pending = Get-PendingChanges
+        if ($pending.Count -gt 0) {
+            Write-Log 'Pending site changes detected; publishing'
+            Publish-Change 'Auto-update tunnel URL' | Out-Null
+        }
         $url = Get-CurrentUrl
         if (Test-ApiHealth $url) {
             Write-Log "OK $url"
